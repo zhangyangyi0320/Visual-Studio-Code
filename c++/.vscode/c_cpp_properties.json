@@ -5,7 +5,7 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
-      "compilerPath": "D:\\mingw64\\bin\\gcc.exe",
+      "compilerPath": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW32\\bingcc.exe",
       "cStandard": "${default}",
       "cppStandard": "${default}",
       "intelliSenseMode": "windows-gcc-x64",

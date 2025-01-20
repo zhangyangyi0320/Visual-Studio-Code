@@ -35,7 +35,7 @@
       "cwd": "c:/Users/doudou/Desktop/Visual Studio Code/java/mod/fabric-example-mod-1.21",
       "program": "c:/Users/doudou/Desktop/Visual Studio Code/java/mod/fabric-example-mod-1.21/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/msys64/mingw64/bin/gdb",
+      "miDebuggerPath": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW32\\bingdb.exe",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
