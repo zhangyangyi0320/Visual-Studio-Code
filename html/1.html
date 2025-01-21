@@ -1,48 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>云存储</title>
 </head>
 
 <body>
-    <h1>欢迎使用云存储</h1>
-    <form id="uploadForm">
-        <input type="file" id="fileInput" />
-        <button type="submit">上传文件</button>
-    </form>
-    <script>
-        document
-            .getElementById("uploadForm")
-            .addEventListener("submit", function (event) {
-                event.preventDefault();
-                function downloadFile(fileUrl, fileName) {
-                    // 创建一个a标签
-                    var a = document.createElement("a");
-                    // 设置文件的URL
-                    a.href = fileUrl;
-                    // 设置文件名
-                    a.download = fileName;
-                    // 将a标签添加到body中
-                    document.body.appendChild(a);
-                    // 模拟点击a标签
-                    a.click();
-                    // 移除a标签
-                    document.body.removeChild(a);
-                }
-
-                // 使用函数
-                // 假设你有一个文件的URL和想要的文件名
-                downloadFile(
-                    "https://example.com/path/to/your/file.pdf",
-                    "filename.pdf"
-                );
-
-                alert("文件上传功能尚未实现");
-            });
-    </script>
-</body>
 
 </html>
