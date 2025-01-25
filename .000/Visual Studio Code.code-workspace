@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "D:/hexo/blog"
+		},
+		{
+			"path": "D:/minecraftserver"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src/main/java"
+		],
+		"java.project.outputPath": "target/classes",
+		"java.project.referencedLibraries": [
+			"lib/*"
+		]
+	}
+}
