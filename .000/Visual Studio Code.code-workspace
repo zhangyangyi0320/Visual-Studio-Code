@@ -1,13 +1,13 @@
 {
 	"folders": [
 		{
-			"path": ".."
-		},
-		{
 			"path": "D:/hexo/blog"
 		},
 		{
 			"path": "D:/minecraftserver"
+		},
+		{
+			"path": "D:/wxMSW-3.2.6_vc100_x64_ReleasePDB"
 		}
 	],
 	"settings": {
