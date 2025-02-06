@@ -1,48 +1,30 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "C++ Launch",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ],
-      "preLaunchTask": "build",
-      "miDebuggerPath": "gdb",
-      "logging": {
-        "moduleLoad": false
+      {
+          "name": "C++ Launch",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}",
+          "args": [],
+          "stopAtEntry": false,
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": false,
+          "MIMode": "gdb",
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+          ],
+          "preLaunchTask": "build",
+          "miDebuggerPath": "",
+          "logging": {
+              "moduleLoad": false
+          },
+          "visualizerFile": "${workspaceFolder}"
       }
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/doudou/Desktop/Visual Studio Code/java/mod/fabric-example-mod-1.21",
-      "program": "c:/Users/doudou/Desktop/Visual Studio Code/java/mod/fabric-example-mod-1.21/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW32\\bin\\gdb.exe",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
   ]
 }
