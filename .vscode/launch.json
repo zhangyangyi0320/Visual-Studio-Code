@@ -5,7 +5,7 @@
       "name": "C++ Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/${workspaceFolderBasename}",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -20,11 +20,10 @@
         }
       ],
       "preLaunchTask": "build",
-      "miDebuggerPath": "C:/Program Files (x86)/Dev-Cpp/MinGW32/bin/gdb",
+      "miDebuggerPath": "C:/Program Files (x86)/Dev-Cpp/MinGW32/bin/gdb.exe",
       "logging": {
         "moduleLoad": false
       },
-      "visualizerFile": "${workspaceFolder}/path/to/visualizer.natvis"
     }
   ]
 }
