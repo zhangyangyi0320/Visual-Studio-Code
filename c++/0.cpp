@@ -2,33 +2,31 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include <thread>
-#include <chrono>
+#include <windows.h>
 
 using namespace std;
 
 // Function to generate a random arithmetic question and return the correct answer
-pair<string, int> generateQuestion() {
+pair<string, int> generateQuestion(char op) {
     int num1 = rand() % 100 + 1;
     int num2 = rand() % 100 + 1;
-    char op = rand() % 4;
     string question;
     int answer;
 
     switch (op) {
-        case 0: // Addition
+        case '+': // Addition
             question = to_string(num1) + " + " + to_string(num2);
             answer = num1 + num2;
             break;
-        case 1: // Subtraction
+        case '-': // Subtraction
             question = to_string(num1) + " - " + to_string(num2);
             answer = num1 - num2;
             break;
-        case 2: // Multiplication
+        case '*': // Multiplication
             question = to_string(num1) + " * " + to_string(num2);
             answer = num1 * num2;
             break;
-        case 3: // Division (integer division)
+        case '/': // Division (integer division)
             // Ensure num2 is not zero
             num2 = num2 == 0 ? 1 : num2;
             question = to_string(num1) + " / " + to_string(num2);
@@ -44,24 +42,33 @@ int main() {
     int score = 0;
 
     while (true) {
-        // Generate two random questions
-        auto question1 = generateQuestion();
-        auto question2 = generateQuestion();
+        // Generate two random operations
+        char op1 = "+-*/"[rand() % 4];
+        char op2 = "+-*/"[rand() % 4];
 
-        // Display the questions with their respective operations
-        cout << "Choose a box (1 or 2) and solve the arithmetic question:" << endl;
-        cout << "Box 1: " << question1.first << endl;
-        cout << "Box 2: " << question2.first << endl;
+        // Display the operations with their respective boxes
+        cout << "Choose a box (1 or 2) and remember the operation:" << endl;
+        cout << "Box 1: " << op1 << endl;
+        cout << "Box 2: " << op2 << endl;
 
         int choice;
         cin >> choice;
 
+        if (choice != 1 && choice != 2) {
+            cout << "Invalid choice. Please enter 1 or 2." << endl;
+            continue;
+        }
+
+        // Generate the question based on the chosen operation
+        auto question = generateQuestion(choice == 1 ? op1 : op2);
+
         int playerAnswer;
+        cout << "The question is: " << question.first << endl;
         cout << "Enter your answer: ";
         cin >> playerAnswer;
 
         // Check the player's answer and update the score
-        if ((choice == 1 && playerAnswer == question1.second) || (choice == 2 && playerAnswer == question2.second)) {
+        if (playerAnswer == question.second) {
             score++;
             cout << "Correct! Your score is: " << score << endl;
         } else {
@@ -72,7 +79,7 @@ int main() {
         // Check if the game is over
         if (score < 0) {
             cout << "Game Over" << endl;
-            this_thread::sleep_for(chrono::seconds(5)); // Wait for 5 seconds
+            Sleep(5000); // Wait for 5 seconds
             break;
         }
     }
