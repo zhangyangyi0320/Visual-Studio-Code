@@ -7,99 +7,89 @@
 #include <chrono>
 #include <fstream>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
 // 函数生成随机算术题目并返回正确答案
-pair<string, int> generateQuestion(char op, int difficulty) {
+pair<string, int> generateQuestion(char op, int difficulty, int type) {
     int num1 = rand() % (difficulty * 100) + 1;
     int num2 = rand() % (difficulty * 100) + 1;
     string question;
     int answer;
 
-    switch (op) {
-        case '+': // 加法
-            question = to_string(num1) + " + " + to_string(num2);
-            answer = num1 + num2;
+    switch (type) {
+        case 1: // 基础算术题目
+            switch (op) {
+                case '+': // 加法
+                    question = to_string(num1) + " + " + to_string(num2);
+                    answer = num1 + num2;
+                    break;
+                case '-': // 减法
+                    question = to_string(num1) + " - " + to_string(num2);
+                    answer = num1 - num2;
+                    break;
+                case '*': // 乘法
+                    question = to_string(num1) + " * " + to_string(num2);
+                    answer = num1 * num2;
+                    break;
+                case '/': // 除法（整数除法）
+                    // 确保num2不为零
+                    num2 = num2 == 0 ? 1 : num2;
+                    question = to_string(num1) + " / " + to_string(num2);
+                    answer = num1 / num2;
+                    break;
+                case '%': // 取模运算
+                    // 确保num2不为零
+                    num2 = num2 == 0 ? 1 : num2;
+                    question = to_string(num1) + " % " + to_string(num2);
+                    answer = num1 % num2;
+                    break;
+                case '^': // 幂运算
+                    question = to_string(num1) + " ^ " + to_string(num2);
+                    answer = pow(num1, num2);
+                    break;
+            }
             break;
-        case '-': // 减法
-            question = to_string(num1) + " - " + to_string(num2);
-            answer = num1 - num2;
-            break;
-        case '*': // 乘法
-            question = to_string(num1) + " * " + to_string(num2);
-            answer = num1 * num2;
-            break;
-        case '/': // 除法（整数除法）
-            // 确保num2不为零
-            num2 = num2 == 0 ? 1 : num2;
-            question = to_string(num1) + " / " + to_string(num2);
-            answer = num1 / num2;
-            break;
-        case '%': // 取模运算
-            // 确保num2不为零
-            num2 = num2 == 0 ? 1 : num2;
-            question = to_string(num1) + " % " + to_string(num2);
-            answer = num1 % num2;
-            break;
-        case '^': // 幂运算
-            question = to_string(num1) + " ^ " + to_string(num2);
-            answer = pow(num1, num2);
+        case 2: // 进阶算术题目
+            // 在这里添加新的题目类型
             break;
     }
 
     return {question, answer};
 }
 
-void saveGame(int score, int difficulty) {
-    ofstream saveFile("savegame.txt");
-    if (saveFile.is_open()) {
-        saveFile << score << endl;
-        saveFile << difficulty << endl;
-        saveFile.close();
-        cout << "游戏进度已保存。" << endl;
+// 保存得分到文件
+void saveScore(int score) {
+    ofstream outFile("score.txt");
+    if (outFile.is_open()) {
+        outFile << score;
+        outFile.close();
     } else {
-        cout << "无法保存游戏进度。" << endl;
+        cout << "无法打开文件保存得分。" << endl;
     }
 }
 
-bool loadGame(int& score, int& difficulty) {
-    ifstream loadFile("savegame.txt");
-    if (loadFile.is_open()) {
-        loadFile >> score;
-        loadFile >> difficulty;
-        loadFile.close();
-        cout << "游戏进度已加载。" << endl;
+// 保存游戏进度到文件
+void saveGame(int score, int difficulty) {
+    ofstream outFile("game_save.txt");
+    if (outFile.is_open()) {
+        outFile << score << " " << difficulty;
+        outFile.close();
+    } else {
+        cout << "无法打开文件保存游戏进度。" << endl;
+    }
+}
+
+// 从文件加载游戏进度
+bool loadGame(int &score, int &difficulty) {
+    ifstream inFile("game_save.txt");
+    if (inFile.is_open()) {
+        inFile >> score >> difficulty;
+        inFile.close();
         return true;
     } else {
-        cout << "没有找到保存的进度。" << endl;
         return false;
-    }
-}
-
-void saveScore(int score) {
-    ofstream scoreFile("scores.txt", ios::app);
-    if (scoreFile.is_open()) {
-        time_t now = time(0);
-        string dt = ctime(&now);
-        scoreFile << "得分: " << score << " 日期: " << dt;
-        scoreFile.close();
-        cout << "得分已保存。" << endl;
-    } else {
-        cout << "无法保存得分。" << endl;
-    }
-}
-
-void showScores() {
-    ifstream scoreFile("scores.txt");
-    if (scoreFile.is_open()) {
-        string line;
-        while (getline(scoreFile, line)) {
-            cout << line << endl;
-        }
-        scoreFile.close();
-    } else {
-        cout << "没有找到得分记录。" << endl;
     }
 }
 
@@ -109,6 +99,7 @@ int main() {
     int difficulty = 1;
     int difficultyGrowthRate;
     int timeLimit;
+    int questionType;
 
     cout << "请选择难度增长速率（1-5）：" << endl;
     while (!(cin >> difficultyGrowthRate) || difficultyGrowthRate < 1 || difficultyGrowthRate > 5) {
@@ -120,6 +111,13 @@ int main() {
     cout << "请输入时间限制（秒）：" << endl;
     while (!(cin >> timeLimit) || timeLimit <= 0) {
         cout << "无效输入。请输入一个正整数。" << endl;
+        cin.clear(); // 清除输入缓冲区
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 忽略错误输入
+    }
+
+    cout << "请选择题目类型（1-基础算术，2-进阶算术）：" << endl;
+    while (!(cin >> questionType) || questionType < 1 || questionType > 2) {
+        cout << "无效输入。请输入1或2。" << endl;
         cin.clear(); // 清除输入缓冲区
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 忽略错误输入
     }
@@ -165,8 +163,8 @@ int main() {
             continue;
         }
 
-        // 根据选择的运算符生成问题
-        auto question = generateQuestion(choice == 1 ? op1 : op2, difficulty);
+        // 根据选择的运算符和题目类型生成问题
+        auto question = generateQuestion(choice == 1 ? op1 : op2, difficulty, questionType);
 
         int playerAnswer;
         cout << "问题是: " << question.first << endl;
