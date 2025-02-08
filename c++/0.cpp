@@ -8,8 +8,18 @@
 #include <fstream>
 #include <vector>
 #include <limits>
+#include <locale>
+#include <codecvt>
+#include <string>
 
 using namespace std;
+
+// 转换为utf8编码
+string to_utf8(const string& str) {
+    wstring_convert<codecvt_utf8<wchar_t>> converter;
+    wstring wstr = wstring(str.begin(), str.end());
+    return converter.to_bytes(wstr);
+}
 
 // 函数生成随机算术题目并返回正确答案
 pair<string, int> generateQuestion(char op, int difficulty, int type) {
