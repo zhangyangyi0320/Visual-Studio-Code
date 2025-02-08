@@ -9,17 +9,8 @@
 #include <vector>
 #include <limits>
 #include <locale>
-#include <codecvt>
-#include <string>
 
 using namespace std;
-
-// 转换为utf8编码
-string to_utf8(const string& str) {
-    wstring_convert<codecvt_utf8<wchar_t>> converter;
-    wstring wstr = wstring(str.begin(), str.end());
-    return converter.to_bytes(wstr);
-}
 
 // 函数生成随机算术题目并返回正确答案
 pair<string, int> generateQuestion(char op, int difficulty, int type) {
@@ -104,6 +95,12 @@ bool loadGame(int &score, int &difficulty) {
 }
 
 int main() {
+    // 设置全局区域设置为UTF-8
+    std::locale::global(std::locale(""));
+
+    // 将std::cout的区域设置设置为全局区域设置
+    std::cout.imbue(std::locale());
+
     srand(time(0)); // 随机数生成的种子
     int score = 0;
     int difficulty = 1;
