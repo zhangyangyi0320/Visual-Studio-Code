@@ -7,7 +7,13 @@
 			"path": "D:/minecraftserver"
 		},
 		{
-			"path": "D:/wxMSW-3.2.6_vc100_x64_ReleasePDB"
+			"path": ".."
+		},
+		{
+			"path": "../../SFML-2.5.1"
+		},
+		{
+			"path": "E:/"
 		}
 	],
 	"settings": {
