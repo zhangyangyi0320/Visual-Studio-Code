@@ -2,35 +2,34 @@
 
 using namespace std;
 
-int dp[20][210];
+int dp[6001];
 
-struct node{
-    int w;
-    int c;
-};
-
-int main() {
-
-    int V,N,T;
-    cin>>V>>N>>T;
-    vector<node> ve[20];
-    for(int i=1;i<=N;i++){
-        int W,C,P;
-        cin>>W>>C>>P;
-        ve[P].push_back({W,C});
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    vector<tuple<int, int, int>> ve(n);
+    for (int i = 0; i < n; ++i)
+    {
+        int v, w, s;
+        cin >> v >> w >> s;
+        ve[i] = make_tuple(v, w, s);
     }
 
-    for(int i=1;i<=T;i++){
-        for(int j=0;j<=V;j++){
-            dp[i][j]=dp[i-1][j];
-            for(int k=0;k<ve[i].size();k++){
-                if(j>=ve[i][k].w)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j-ve[i][k].w]+ve[i][k].c);
+    for (int a = 0; a < ve.size(); a++)
+    {
+        int v, w, s;
+        for (int k = 1; s > 0; k <<= 1)
+        {
+            int x = min(k, s);
+            s -= x;
+            for (int j = m; j >= x * v; --j)
+            {
+                dp[j] = max(dp[j], dp[j - x * v] + x * w);
             }
         }
     }
 
-    cout<<dp[T][V]<<endl;
-
+    cout << dp[m] << endl;
     return 0;
 }
