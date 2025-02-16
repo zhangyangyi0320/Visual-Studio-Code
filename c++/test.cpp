@@ -4,32 +4,33 @@ using namespace std;
 
 int dp[6001];
 
+struct node
+{
+    int a,b;
+};
+
 int main()
 {
     int n, m;
-    cin >> n >> m;
-    vector<tuple<int, int, int>> ve(n);
-    for (int i = 0; i < n; ++i)
+    cin >> m >> n;
+    vector<node> ve(110);
+    for (int i = 1; i <= n; i++)
     {
-        int v, w, s;
-        cin >> v >> w >> s;
-        ve[i] = make_tuple(v, w, s);
+        int a,b,c;
+        cin >> a >> b >> c;
+        ve[c].a = a;
+        ve[c].b = b;
     }
-
-    for (int a = 0; a < ve.size(); a++)
+    for (int i = 1; i <= m; i++)
     {
-        int v, w, s;
-        for (int k = 1; s > 0; k <<= 1)
+        for (int j = 1; j <= n; j++)
         {
-            int x = min(k, s);
-            s -= x;
-            for (int j = m; j >= x * v; --j)
+            if (i >= ve[j].b)
             {
-                dp[j] = max(dp[j], dp[j - x * v] + x * w);
+                dp[i] = max(dp[i], dp[i-ve[j].b]+ve[j].a);
             }
         }
     }
-
     cout << dp[m] << endl;
     return 0;
 }
