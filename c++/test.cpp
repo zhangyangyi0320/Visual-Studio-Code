@@ -2,37 +2,28 @@
 
 using namespace std;
 
-long long dp[1010];
+long long dp[110][110];
+long long a[110];
 
-struct node
-{
-    int b,a;
-};
-
-int main()
-{
-    int n, m;
-    cin >> m >> n;
-    vector<node> ve[110];
-    for (int i = 1; i <= n; i++)
-    {
-        int a,b,c;
-        cin >> a >> b >> c;
-        ve[c].push_back({a,b});
+int main() {
+    int n;
+    cin >> n;
+    vector<int> ve(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> ve[i];
+        a[i] = a[i - 1] + ve[i];
     }
-    for (int i = 1; i <= 100; i++)
-    {
-        for (int j = m; j >= 0; j--)
-        {
-            for (int k = 0; k < ve[i].size(); k++)
-            {
-                if (j >= ve[i][k].b)
-                {
-                    dp[j] = max(dp[j], dp[j-ve[i][k].b]+ve[i][k].a);
-                }
+
+    for (int l = 2; l <= n; l++) {
+        for (int i = 1; i + l - 1 <= n; i++) {
+            int j = i + l - 1;
+            dp[i][j] = 9223372036854775807;
+            for (int k = i; k < j; k++) {
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + a[j] - a[i - 1]);
             }
         }
     }
-    cout << dp[m];
+
+    cout << dp[1][n];
     return 0;
 }
