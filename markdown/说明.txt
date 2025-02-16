@@ -1,9 +1,9 @@
 # 导航：
 -----------
-## c++：cd "C:\Users\doudou\Desktop\Visual Studio Code\c++"
-## c：cd "C:\Users\doudou\Desktop\Visual Studio Code\c"
-## java：cd "C:\Users\doudou\Desktop\Visual Studio Code\java"
-## python：cd "C:\Users\doudou\Desktop\Visual Studio Code\python"
+## c++：cd "C:\Users\zhangyangyi\Desktop\Visual Studio Code\c++"
+## c：cd "C:\Users\zhangyangyi\Desktop\Visual Studio Code\c"
+## java：cd "C:\Users\zhangyangyi\Desktop\Visual Studio Code\java"
+## python：cd "C:\Users\zhangyangyi\Desktop\Visual Studio Code\python"
 -----------
 # 编译：
 -----------
