@@ -16,15 +16,14 @@ int main()
         a[i] = a[i - 1] + ve[i];
     }
 
-    for (int i = 2; i <= 110; i++)
+    for (int l = 2; l <= n; l++)
     {
-        for (int j = 1; j + i - 1 <= n; j++)
+        for (int i = 1, j = l; j <= n; i++, j++)
         {
-            int k = j + i - 1;
-            dp[j][k] = INT_MAX;
-            for (int l = j; l < k; l++)
+            dp[i][j] = INT_MAX;
+            for (int k = i; k < j; k++)
             {
-                dp[j][k] = min(dp[j][k], dp[j][l] + dp[l + 1][k] + a[k] - a[j - 1]);
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + a[j] - a[i - 1]);
             }
         }
     }
