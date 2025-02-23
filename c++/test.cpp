@@ -10,11 +10,11 @@ int main()
     cin>>a;
     b=a;
     reverse(b.begin(),b.end());
-    for (int i = 0; i < a.size(); i++)
+    for (int i = 1; i <= a.size(); i++)
     {
-        for(int j = 0; j < b.size(); j--)
+        for(int j = 1; j <= b.size(); j++)
         {
-            if(a[i]==b[j])
+            if(a[i-1]==b[j-1])
             {
                 dp[i][j]=dp[i-1][j-1]+1;
             }
@@ -24,6 +24,6 @@ int main()
             }
         }
     }
-    cout<<a.size()-dp[a.size()-1][b.size()-1];
+    cout<<a.size()-dp[a.size()][b.size()];
     return 0;
 }
