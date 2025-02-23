@@ -2,31 +2,41 @@
 
 using namespace std;
 
-int n, d;
-int ans[1010], tmp[1010];
-vector<int> son[1010];
-void dfs(int node, int depth)
+int a[110],dp[110];
+vector<int> adj[110];
+int n;
+
+void dfs(int u,int b)
 {
-    tmp[depth] = node;
-    ans[node] = depth > d ? tmp[depth - d] : -1;
-    for (int x : son[node])
+    dp[u] = a[u];
+    for(int j=0;j<adj[u].size();j++)
     {
-        dfs(x, depth + 1);
+        int v = adj[u][j];
+        if(v!=b)
+        {
+            dfs(v,u);
+            if(dp[v]>0)
+                dp[u] += dp[v];
+        }
     }
 }
+
 int main()
 {
-    cin >> n >> d;
-    for (int i = 2; i <= n; i++)
+    cin >> n;
+    for(int i=1;i<=n;i++)
+        cin >> a[i];
+    for(int i=1;i<n;i++)
     {
-        int x;
-        cin >> x;
-        son[x].push_back(i);
+        int a,b;
+        cin >> a >> b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
     }
-    dfs(1, 1);
-    for (int i = 1; i <= n; i++)
-    {
-        cout << ans[i] << endl;
-    }
+    dfs(1,0);
+    int ans = 0;
+    for(int i=1;i<=n;i++)
+        ans = max(ans,dp[i]);
+    cout << ans;
     return 0;
 }
