@@ -38,6 +38,14 @@ void dfs(int x, int fa)
 
 int main()
 {
+    cin >> n;
+    for(int i = 1; i < n; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        ve[x].push_back(y);
+        ve[y].push_back(x);
+    }
     flag = 0;
     if (n % 3)
     {
