@@ -2,65 +2,66 @@
 
 using namespace std;
 
-const int MAXN = 2e5 + 10;
-vector<int> ve[MAXN];
-int dp[MAXN][2], root[MAXN], n, cnt;
-bool flag;
-void dfs(int x, int fa)
+struct node
 {
-    if (flag)
+    string n;
+    string p;
+    int c;
+} a[110];
+
+bool cmp(node a, node b)
+{
+    if (a.p != b.p)
     {
-        return;
+        return a.p < b.p;
     }
-    root[x] = 1;
-    for (int i = 0; i < ve[x].size(); i++)
+    else
     {
-        int y = ve[x][i];
-        if (y == fa)
-        {
-            continue;
-        }
-        dfs(y, x);
-        root[x] += root[y];
-    }
-    if (root[x] > 3)
-    {
-        flag = 1;
-    }else if (root[x] == 3)
-    {
-        if(fa)
-        {
-            root[x] = 0;
-            cnt++;
-        }
+        return a.n < b.n;
     }
 }
 
 int main()
 {
+    int n;
     cin >> n;
-    for(int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        int x, y;
-        cin >> x >> y;
-        ve[x].push_back(y);
-        ve[y].push_back(x);
-    }
-    flag = 0;
-    if (n % 3)
-    {
-        cout << -1;
-    }
-    else
-    {
-        dfs(1, 0);
-        if (flag)
+        int m;
+        cin >> m;
+        for (int j = 0; j < m; j++)
         {
-            cout << -1;
+            cin >> a[j].n >> a[j].p >> a[j].c;
         }
-        else
+        sort(a, a + m, cmp);
+        string q = a[0].n, p = a[0].p;
+        int k = a[1].c;
+        cout << q << endl;
+        for (int j = 1; j < m; j++)
         {
-            cout << cnt;
+            if (a[j].p == p)
+            {
+                cout << "   |----" << q << "(" << k << ")" << endl;
+                q = a[j].n;
+                p = a[j].p;
+                k = a[j].c;
+                cout << p << endl;
+            }
+            else if (a[i].n != q)
+            {
+                cout << "   |----" << q << "(" << k << ")" << endl;
+                q = a[j].n;
+                k = a[j].c;
+            }
+            else
+            {
+                k += a[j].c;
+            }
+            cout << "   |----" << q << "(" << k << ")" << endl;
+            if (n)
+            {
+                cout << endl;
+            }
         }
     }
     return 0;
