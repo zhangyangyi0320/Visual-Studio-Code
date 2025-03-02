@@ -35,11 +35,11 @@ int main()
         }
         sort(a, a + m, cmp);
         string q = a[0].n, p = a[0].p;
-        int k = a[1].c;
-        cout << q << endl;
+        int k = a[0].c;
+        cout << p << endl;
         for (int j = 1; j < m; j++)
         {
-            if (a[j].p == p)
+            if (a[j].p != p)
             {
                 cout << "   |----" << q << "(" << k << ")" << endl;
                 q = a[j].n;
@@ -47,7 +47,7 @@ int main()
                 k = a[j].c;
                 cout << p << endl;
             }
-            else if (a[i].n != q)
+            else if (a[j].n != q)
             {
                 cout << "   |----" << q << "(" << k << ")" << endl;
                 q = a[j].n;
@@ -57,12 +57,10 @@ int main()
             {
                 k += a[j].c;
             }
-            cout << "   |----" << q << "(" << k << ")" << endl;
-            if (n)
-            {
-                cout << endl;
-            }
+            
         }
+        cout << "   |----" << q << "(" << k << ")" << endl;
+        cout << endl;
     }
     return 0;
 }
