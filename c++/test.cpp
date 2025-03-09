@@ -2,38 +2,33 @@
 
 using namespace std;
 
-char a[60][60];
-int n, m, t, k, sum = 1, to[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int n;
 
-void dfs(int x, int y)
+struct node
 {
-    for (int i = 0; i <= 3; i++)
-    {
-        int tx = x + to[i][0], ty = y + to[i][1];
-        if (tx >= 1 && tx <= n && ty >= 1 && ty <= m && a[tx][ty] == '.')
-        {
-            sum++;
-            a[tx][ty] = '#';
-            dfs(tx, ty);
-        }
-    }
+    int id,pm1,pm2,pm;
+}a[1010];
+
+bool cmp(node a,node b)
+{
+    if(a.pm!=b.pm)
+        return a.pm>b.pm;
+    else if(a.pm2!=b.pm2)
+        return a.pm2<b.pm2;
+    return a.id<b.id;
 }
+
 int main()
 {
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++)
+    cin>>n;
+    for(int i=0;i<n;i++)
     {
-        for (int j = 1; j <= m; j++)
-        {
-            cin >> a[i][j];
-            if (a[i][j] == '@')
-            {
-                t = i;
-                k = j;
-            }
-        }
+        a[i].id=i;
+        cin>>a[i].pm1>>a[i].pm2;
+        a[i].pm=a[i].pm1-a[i].pm2;
     }
-    dfs(t, k);
-    cout << sum << endl;
+    sort(a,a+n,cmp);
+    for(int i=0;i<n;i++)
+        cout<<a[i].id<<' ';
     return 0;
 }
