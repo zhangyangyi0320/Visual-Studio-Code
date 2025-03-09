@@ -2,40 +2,38 @@
 
 using namespace std;
 
-int sum = 0, n;
+char a[60][60];
+int n, m, t, k, sum = 1, to[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-struct node
+void dfs(int x, int y)
 {
-    int dps, hp;
-    double t;
-} a[30];
-
-bool cmp(node a, node b)
-{
-    return a.t > b.t;
+    for (int i = 0; i <= 3; i++)
+    {
+        int tx = x + to[i][0], ty = y + to[i][1];
+        if (tx >= 1 && tx <= n && ty >= 1 && ty <= m && a[tx][ty] == '.')
+        {
+            sum++;
+            a[tx][ty] = '#';
+            dfs(tx, ty);
+        }
+    }
 }
-
 int main()
 {
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
     {
-        cin >> a[i].dps >> a[i].hp;
-        a[i].t = a[i].dps * 1.0 / a[i].hp;
-        sum += a[i].dps;
-    }
-    sort(a, a + n, cmp);
-    int ans = 0;
-    for (int i = 0; i < n; i++)
-    {
-        int m = a[i].hp;
-        while (m > 0)
+        for (int j = 1; j <= m; j++)
         {
-            m--;
-            ans += sum;
+            cin >> a[i][j];
+            if (a[i][j] == '@')
+            {
+                t = i;
+                k = j;
+            }
         }
-        sum -= a[i].dps;
     }
-    cout << ans;
+    dfs(t, k);
+    cout << sum << endl;
     return 0;
 }
