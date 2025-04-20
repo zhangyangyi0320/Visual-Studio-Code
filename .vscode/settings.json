@@ -62,5 +62,10 @@
   "java.project.outputPath": "target/classes",
   "java.project.referencedLibraries": [
     "lib/*"
-  ]
+  ],
+  "files.associations": {
+    "*.ino": "arduino",
+    "map": "cpp",
+    "iostream": "cpp"
+  }
 }
