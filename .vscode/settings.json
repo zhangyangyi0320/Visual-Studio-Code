@@ -66,6 +66,10 @@
   "files.associations": {
     "*.ino": "arduino",
     "map": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "ostream": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp"
   }
 }
