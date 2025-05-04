@@ -194,39 +194,167 @@ int main()
     return 0;
 }
 */
-#include <iostream>
+/*
+#include <bits/stdc++.h>
 using namespace std;
-int n, a[1010], temp[1010];
-void MergeSort(int l, int r)
+int n, r, q;
+struct Node
 {
-    if (l == r)
-        return;
-    int mid = (l + r) / 2;
-    MergeSort(l, mid);
-    MergeSort(mid + 1, r);
-    int i = l, j = mid + 1, k = l;
-    while (i <= mid && j <= r)
-    {
-        if (a[i] <= a[j])
-            temp[k++] = a[i++];
-        else
-            temp[k++] = a[j++];
-    }
-    while (i <= mid)
-        temp[k++] = a[i++];
-    while (j <= r)
-        temp[k++] = a[j++];
-    for (int i = l; i <= r; i++)
-        a[i] = temp[i];
-    for (int i = 1; i <= n; i++)
-        cout << a[i] << " ";
-    cout << endl;
+    int score, act, id;
+} a[200010];
+bool cmp(Node a, Node b)
+{
+    if (a.score == b.score)
+        return a.id < b.id;
+    return a.score > b.score;
 }
 int main()
 {
+    cin >> n >> r >> q;
+    for (int i = 1; i <= 2 * n; i++)
+    {
+        cin >> a[i].score;
+        a[i].id = i;
+    }
+    for (int i = 1; i <= 2 * n; i++)
+    {
+        cin >> a[i].act;
+    }
+    while (r--)
+    {
+        sort(a + 1, a + 2 * n + 1, cmp);
+        for (int i = 1; i <= n; i++)
+        {
+            if (a[2 * i - 1].act < a[2 * i].act)
+            {
+                a[2 * i].score++;
+            }
+            else
+            {
+                a[2 * i - 1].score++;
+            }
+        }
+    }
+    sort(a + 1, a + 2 * n + 1, cmp);
+    cout << a[q].id;
+    return 0;
+}
+*/
+/*
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+const int N = 1e5 + 5;
+
+int a[N];
+int n, _max;
+int temp[N];
+
+void RadixSort()
+{
+    // 遍历每一个数位
+    for (int i = 1; i <= _max; i *= 10)
+    {
+
+        int s[10] = {0};
+        for (int j = 1; j <= n; j++)
+        {
+            // 统计个数
+            s[a[j] / i % 10]++;
+        }
+
+        // 前缀和
+        for (int j = 1; j <= 9; j++)
+        {
+            s[j] += s[j - 1];
+        }
+
+        for (int j = n; j >= 1; j--)
+        {
+            // 将数值按照位置进行逐一插入
+            temp[s[a[j] / i % 10]] = a[j];
+            s[a[j] / i % 10]--;
+        }
+
+        for (int j = 1; j <= n; j++)
+        {
+            // 数值覆盖会原数组
+            a[j] = temp[j];
+        }
+
+        // 输出结果
+        for (int j = 1; j <= n; j++)
+        {
+            cout << a[j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main()
+{
+
     cin >> n;
     for (int i = 1; i <= n; i++)
+    {
         cin >> a[i];
-    MergeSort(1, n);
+        if (i == 1)
+            _max = a[i];
+        else
+            _max = max(_max, a[i]);
+    }
+
+    RadixSort();
+
     return 0;
+}
+*/
+#include <iostream>
+using namespace std;
+const int N = 1e3 + 10;
+int a[N];
+int n;
+
+int partition(int a[], int l, int r)
+{
+
+	int k = a[l]; //枢轴
+	
+	/*找到枢轴的位置，返回*/ 
+    while(l<r)
+    {
+        while(l<r && a[r]>=k) r--;
+        a[l] = a[r];
+        while(l<r && a[l]<=k) l++;
+        a[r] = a[l];
+    }
+    return l;
+}
+
+void QuickSort(int a[], int l, int r)
+{
+	/*结束条件*/
+	if(l>=r)return;
+	int pos = partition(a, l, r);//记录枢轴的位置
+	
+	 
+	/*输出结果*/ 
+    for (int i = 1; i <= n; i++)
+    {
+        cout << a[i] << " ";
+    }
+	cout<<endl;
+	/*递归处理左右两边*/ 
+    QuickSort(a, l, pos - 1);
+    QuickSort(a, pos + 1, r);
+}
+
+int main()
+{
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
+	QuickSort(a, 1, n);
+	return 0;
 }
