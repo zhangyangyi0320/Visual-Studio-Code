@@ -12,6 +12,22 @@ void push(int x)
         id /= 2;
     }
 }
+int get()
+{
+    int res = a[1];
+    a[1] = a[sz--];
+    int id = 1;
+    while (id * 2 <= sz)
+    {
+        id *= 2;
+        if (id + 1 <= sz && a[id] < a[id + 1])
+            id++;
+        if (a[id] <= a[id / 2])
+            break;
+        swap(a[id], a[id / 2]);
+    }
+    return res;
+}
 int main()
 {
     int n;
@@ -22,10 +38,10 @@ int main()
         cin >> x;
         push(x);
     }
-    for(int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        cout << a[i] << " ";
+        cout << get() << " ";
     }
-    cout<<endl;
+    cout << endl;
     return 0;
 }
