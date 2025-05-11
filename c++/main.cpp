@@ -1,35 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 5;
-int d[N];
 int main()
 {
-    string a, b;
-    cin >> a >> b;
-    
-    int i = 0, j = 0;
-    while (i < a.size())
-    {
-        if (a[i] == a[j])
-        {
-            i++;
-            j++;
-            if (j == b.size())
-            {
-                cout << i - j + 1;
-                j = d[j-1];
-            }
-        }
-        else
-        {
-            if (j > 0)
-            {
-                j = d[j - 1];
-            }
-            else
-            {
-                i++;
-            }
+    int n;
+    cin >> n;
+    map<string, int> mp;
+    for (int i = 0; i < n; i++) {
+        string x;
+        cin >> x;
+        mp[x]=1;
+    }
+    int m;
+    cin >> m;
+    while(m--) {
+        string x;
+        cin >> x;
+        if(mp.count(x)==0) {
+            cout << "WRONG" << endl;
+        } else if(mp[x]==1){
+            cout << "OK" << endl;
+            mp[x]++;
+        } else {
+            cout << "REPEAT" << endl;
         }
     }
     return 0;
