@@ -6,6 +6,7 @@ int main()
 {
     string a, b;
     cin >> a >> b;
+    
     int i = 0, j = 0;
     while (i < a.size())
     {
