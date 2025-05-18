@@ -22,28 +22,22 @@ int get_d(string &s)
             i++;
         }
     }
-    return d;
+    return d.back();
 }
 int main()
 {
-    string A,B;
-    cin>>A>>B;
-    for(int i=1,j=0;i<=B.size();)
-    {
-        if(B[i]==B[j])
-        {
-            d[i]=j+1;
-            i++;
-            j++;
-        }
-        else if(j)
-        {
-            j=d[j-1];
-        }
-        else
-        {
-            i++;
-        }
+    int n;
+    cin>>n;
+    string ans;
+    cin>>ans;
+    for(int i=1;i<n;i++){
+        string s;
+        cin>>s;
+        string suf=ans.substr(max(0,(int)ans.size()-(int)s.size()));
+        string tmp=s+"#"+suf;
+        int len=get_d(tmp);
+        ans+=s.substr(len);
     }
+    cout<<ans<<endl;
     return 0;
 }
