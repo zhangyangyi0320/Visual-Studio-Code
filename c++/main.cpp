@@ -1,27 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
+int d[1000005];
+int get_d(string &s)
+{
+    int n=s.size();
+    vector<int> d(n);
+    for(int i=1,j=0;i<n;)
+    {
+        if(s[i]==s[j])
+        {
+            d[i]=j+1;
+            i++;
+            j++;
+        }
+        else if(j)
+        {
+            j=d[j-1];
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return d;
+}
 int main()
 {
-    int n;
-    cin >> n;
-    map<string, int> mp;
-    for (int i = 0; i < n; i++) {
-        string x;
-        cin >> x;
-        mp[x]=1;
-    }
-    int m;
-    cin >> m;
-    while(m--) {
-        string x;
-        cin >> x;
-        if(mp.count(x)==0) {
-            cout << "WRONG" << endl;
-        } else if(mp[x]==1){
-            cout << "OK" << endl;
-            mp[x]++;
-        } else {
-            cout << "REPEAT" << endl;
+    string A,B;
+    cin>>A>>B;
+    for(int i=1,j=0;i<=B.size();)
+    {
+        if(B[i]==B[j])
+        {
+            d[i]=j+1;
+            i++;
+            j++;
+        }
+        else if(j)
+        {
+            j=d[j-1];
+        }
+        else
+        {
+            i++;
         }
     }
     return 0;
