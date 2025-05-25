@@ -1,43 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-int d[1000005];
-int get_d(string &s)
-{
-    int n=s.size();
-    vector<int> d(n);
-    for(int i=1,j=0;i<n;)
-    {
-        if(s[i]==s[j])
-        {
-            d[i]=j+1;
-            i++;
-            j++;
-        }
-        else if(j)
-        {
-            j=d[j-1];
-        }
-        else
-        {
-            i++;
-        }
-    }
-    return d.back();
-}
 int main()
 {
-    int n;
-    cin>>n;
-    string ans;
-    cin>>ans;
-    for(int i=1;i<n;i++){
-        string s;
-        cin>>s;
-        string suf=ans.substr(max(0,(int)ans.size()-(int)s.size()));
-        string tmp=s+"#"+suf;
-        int len=get_d(tmp);
-        ans+=s.substr(len);
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        vector<int> a;
+        int n;
+        cin >> n;
+        for (int i = 2; i * i < n; i++)
+        {
+            if (n % i == 0)
+            {
+                while (n % i == 0)
+                {
+                    n /= i;
+                    a.push_back(i);
+                }
+            }
+        }
+        if (n > 1)
+        {
+            a.push_back(n);
+        }
+        for(int i = 0; i < a.size(); i++)
+        {
+            if(i == 0) cout << a[i];
+            else cout << "*" << a[i];
+        }
+        cout << endl;
     }
-    cout<<ans<<endl;
     return 0;
 }
